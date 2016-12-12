@@ -1,12 +1,12 @@
-FROM anapsix/alpine-java:jdk7
+FROM anapsix/alpine-java:8_jdk_unlimited
 
 MAINTAINER Jean-Marc Soumet (https://github.com/ajmssc)
-ARG ALLUXIO_VERSION=1.0.1
+ARG ALLUXIO_VERSION=1.3.0
 
 RUN apk add --update wget sudo supervisor openssh
 RUN wget http://alluxio.org/downloads/files/${ALLUXIO_VERSION}/alluxio-${ALLUXIO_VERSION}-bin.tar.gz -O /alluxio.tar.gz && \
     tar xvzf /alluxio.tar.gz && mv /alluxio-* /alluxio && \
-    rm -rf /alluxio.tar.gz 
+    rm -rf /alluxio.tar.gz
 
 
 ## Create ssh key
@@ -17,7 +17,7 @@ RUN rm -f /root/.ssh/id_rsa && \
     chmod og-wx ~/.ssh/authorized_keys
 
 ENV TERM=xterm
-ENV ALLUXIO_WORKER_MEMORY_SIZE 2GB
+ENV ALLUXIO_WORKER_MEMORY_SIZE 4GB
 ENV ALLUXIO_UNDERFS_ADDRESS /data
 ENV ALLUXIO_RAM_FOLDER /dev/ram
 
